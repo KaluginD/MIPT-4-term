@@ -1,0 +1,45 @@
+template <typename T>
+class LazyValue {
+    using Factory = std::function<T*()>;
+public:
+    explicit LazyValue(Factory create)
+        : create_(create) {
+    }
+
+    T& Get() {
+        // double checked locking pattern
+        T* curr_ptr = ptr_to_value_.load(/* memory order */);
+        if (curr_ptr == nullptr) {
+            std::lock_guard<std::mutex> guard(mutex_);
+            curr_ptr = ptr_to_value_.load(/* memory order */);
+            if (curr_ptr == nullptr) {
+                curr_ptr = create_();
+                ptr_to_value_.store(curr_ptr /*, memory order */);
+            }
+        }
+        return *curr_ptr;
+    }
+
+    ~LazyValue() {
+        if (ptr_to_value_.load() != nullptr) {
+            delete ptr_to_value_;
+        }
+    }
+
+private:
+    Factory create_;
+    std::mutex mutex_;
+    std::atomic<T*> ptr_to_value_{nullptr};
+};
+
+1. Объяснить, какие неатомарные чтения и записи и зачем должны быть упорядочены.
+Обращения к методу Get из разных потоков должы быть упорядочены, из-за неатомарности блока внутри метода.
+
+2. Показать, как алгоритм гарантирует возникновение стрелок  happens-before между нужными чтениями и записями.
+Пусть атомарные операции происходят со следующими гарантиями:
+первое чтение: ptr_to_value_.load(std::memory_order_acquire) 
+ptr_to_value_.store(curr_ptr, std::memory_order_release)
+Так как внутри у нас стоит блокировка мьютексом, там гонок точно не будет. Тогда такие гарантии создают отношение synchronizaton order между обращениями к Get из разных потоков(в пределах одного потока это гарантируется с помощью program order), что и создает стрелки happens before.
+
+3. Максимально ослабить гарантии упорядочивания.
+Для создания стрелок happens before нам нужны acquire и release в первом считывании и в записи соответственно. Так как второе считывание происходит под мьютексом, и у нас уже есть synchronization order, второе считывание можно делать relaxed.

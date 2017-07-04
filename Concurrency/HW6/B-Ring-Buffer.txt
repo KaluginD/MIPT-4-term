@@ -1,0 +1,73 @@
+// Single-Producer/Single-Consumer Fixed-Size Ring Buffer (Queue)
+
+template <typename T>
+class SPSCRingBuffer {
+public:
+    explicit SPSCRingBuffer(const size_t capacity)
+        : buffer_(capacity + 1) {
+    }
+
+    bool Publish(T element) {
+        const size_t curr_head = head_.load(/* memory order */);
+        const size_t curr_tail = tail_.load(/* memory_order */);
+
+        if (Full(curr_head, curr_tail)) {
+            return false;
+        }
+
+        buffer_[curr_tail] = element;
+        tail_.store(Next(curr_tail) /*, memory order */);
+        return true;
+    }
+
+    bool Consume(T& element) {
+        const size_t curr_head = head_.load(/* memory order */);
+        const size_t curr_tail = tail_.load(/* memory order */);
+
+        if (Empty(curr_head, curr_tail)) {
+            return false;
+        }
+
+        element = buffer_[curr_head];
+        head_.store(Next(curr_head) /*, memory order */);
+        return true;
+    }
+
+private:
+    bool Full(const size_t head, const size_t tail) const {
+        return Next(tail) == head;
+    }
+
+    bool Empty(const size_t head, const size_t tail) const {
+        return tail == head;
+    }
+
+    size_t Next(const size_t slot) const {
+        return (slot + 1) % buffer_.size();
+    }
+
+private:
+    std::vector<T> buffer_;
+    std::atomic<size_t> tail_{0};
+    std::atomic<size_t> head_{0};
+};
+
+1. Объяснить, какие неатомарные чтения и записи и зачем должны быть упорядочены.
+Методы Consume и Publish должны быть упорядочены. Все их содержимое с неатомарными сравнениями и чтениями должно быть упорядочено блоками. 
+ 
+2. Показать, как алгоритм гарантирует возникновение стрелок  happens-before между нужными чтениями и записями.
+Пусть атомарные операции происходят со следующими гарантиями:
+Publish:
+head.load(std::memory_order_acquire)
+tail.store(/*new_tail*/, std::memory_order_release)
+
+Consume:
+tail.store(std::memory_order_acquire)
+head.store(/*new_head*/, std::memory_order_release)
+
+Гарантии на оставшихся чтениях tail и head не существенны, так как у нас по одному продьюсеру и консьюмеру.
+Очевидно, что при таких гарантиях мы получаем и для head и для tail порядок synchronized with между потоками. Так как для каждой переменной у нас так же есть есть synchronization order, в замыкании мы получаем стрелки happens-before.
+ 
+3. Максимально ослабить гарантии упорядочивания.
+Из алгоритма возникновения стрелок happens-before видно, что в 4 обращениях нам нужны гарантии acquire/release, и если взять более слабые, то стрелок не возникнет. На оставшихся двух чтениях можно взять relaxed, потому что у нас по одному консьюмеру и продьюсеру.
+
