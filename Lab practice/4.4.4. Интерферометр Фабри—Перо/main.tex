@@ -1,0 +1,57 @@
+\documentclass[12pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[russian]{babel}
+\usepackage{titlesec}
+\usepackage{titling}
+\usepackage{textcomp}
+\usepackage{graphicx}
+\usepackage{amssymb}
+\usepackage[russian]{babel}
+\usepackage[babel = true]{microtype}
+\usepackage[left=10mm,right=10mm, top=15mm,bottom=15mm]{geometry}
+\usepackage{amsmath}
+\usepackage{mathtools}
+\usepackage{array}
+\usepackage{wrapfig}
+\usepackage{multirow}
+\usepackage{gensymb}
+\usepackage{tabu}
+\usepackage{graphicx}
+\usepackage{subcaption}
+\let\oldAA\AA
+\renewcommand{\AA}{\text{\normalfont\oldAA}}
+
+\makeatletter
+\newcommand*{\rom}[1]{\expandafter\@slowromancap\romannumeral #1@}
+\makeatother
+
+\setlength{\droptitle}{-5em}
+
+\title{Лаба 4.4.4. Интерферометр Фабри—Перо}
+\date{}
+
+\titleformat{\section}[hang]
+{\normalfont\bfseries}
+{\thesection.}{0.5em}{}
+
+\titleformat{\subsection}[hang]
+{\normalfont\bfseries}
+{\thesection.}{0.5em}{}
+
+\begin{document}
+
+\maketitle
+
+\paragraph{Цель работы:}измерение длины волны жёлтых линий ртути, жёлтого дублета натрия, определение спектральных характеристик интерферометра Фабри—Перо.
+
+\paragraph{В работе используются:}интерферометр Фабри—Перо, линзы, светофильтры, ртутная и натриевая лампы, катетометр КН-6.
+
+\input{Theory}
+%\newpage
+\input{Setup}
+\newpage
+\input{Progress}
+%\input{Treatment}
+\section*{Вывод:} ознакомились с принципом работы интерферометра Фабри-Перо, определили его основные спектральные характеристики, определили длину волны желтого дуплета натрия.
+
+\end{document}

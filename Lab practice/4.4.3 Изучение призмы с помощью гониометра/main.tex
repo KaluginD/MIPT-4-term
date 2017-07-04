@@ -1,0 +1,55 @@
+\documentclass[12pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[russian]{babel}
+\usepackage{titlesec}
+\usepackage{titling}
+\usepackage{textcomp}
+\usepackage{graphicx}
+\usepackage{amssymb}
+\usepackage[russian]{babel}
+\usepackage[babel = true]{microtype}
+\usepackage[left=10mm,right=10mm, top=15mm,bottom=15mm]{geometry}
+\usepackage{amsmath}
+\usepackage{mathtools}
+\usepackage{array}
+\usepackage{wrapfig}
+\usepackage{multirow}
+\usepackage{gensymb}
+\usepackage{tabu}
+\usepackage{graphicx}
+\let\oldAA\AA
+\renewcommand{\AA}{\text{\normalfont\oldAA}}
+
+\makeatletter
+\newcommand*{\rom}[1]{\expandafter\@slowromancap\romannumeral #1@}
+\makeatother
+
+\setlength{\droptitle}{-5em}
+
+\title{4.4.3. Изучение призмы с помощью гониометра}
+\date{}
+
+\titleformat{\section}[hang]
+{\normalfont\bfseries}
+{\thesection.}{0.5em}{}
+
+\titleformat{\subsection}[hang]
+{\normalfont\bfseries}
+{\thesection.}{0.5em}{}
+
+\begin{document}
+
+\maketitle
+
+\paragraph{Цель работы:}знакомство с работой и настройкой гониометра Г5, определение зависимости показателя преломления стекла призмы от длины волны, определение марки стекла и спектральных характеристик призмы.
+\paragraph{В работе используются:}гониометр, ртутная лампа, призма.
+
+\input{Theory}
+%\newpage
+\input{Setup}
+\newpage
+\input{Progress}
+\input{Treatment}
+\section*{Вывод:} Исследовали дисперсию стеклянной призмы, оппределили характеристики спектрального прибора. В ходе эксперемента установили, что для имеющегося образца $n \approx 1,7$, что соответствует высокопреломляющему стеклу, из чего можно сделать вывод, что тип материала --- минеральный.
+
+\end{document}

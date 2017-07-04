@@ -1,0 +1,56 @@
+\documentclass[12pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[russian]{babel}
+\usepackage{titlesec}
+\usepackage{titling}
+\usepackage{textcomp}
+\usepackage{graphicx}
+\usepackage{amssymb}
+\usepackage[russian]{babel}
+\usepackage[babel = true]{microtype}
+\usepackage[left=10mm,right=10mm, top=15mm,bottom=15mm]{geometry}
+\usepackage{amsmath}
+\usepackage{mathtools}
+\usepackage{array}
+\usepackage{wrapfig}
+\usepackage{multirow}
+\usepackage{gensymb}
+\usepackage{tabu}
+\usepackage{graphicx}
+\usepackage{subcaption}
+\let\oldAA\AA
+\renewcommand{\AA}{\text{\normalfont\oldAA}}
+
+\makeatletter
+\newcommand*{\rom}[1]{\expandafter\@slowromancap\romannumeral #1@}
+\makeatother
+
+\setlength{\droptitle}{-5em}
+
+\title{4.7.1 Двойное лучепреломление}
+\date{}
+
+\titleformat{\section}[hang]
+{\normalfont\bfseries}
+{\thesection.}{0.5em}{}
+
+\titleformat{\subsection}[hang]
+{\normalfont\bfseries}
+{\thesection.}{0.5em}{}
+
+\begin{document}
+
+\maketitle
+
+\paragraph{Цель работы:}изучение зависимости показателя преломления необыкновенной волны от направления в двоякопреломляющем кристалле; определение главных показателей преломления в кристалле.
+
+\paragraph{В работе используются:}гелий-неоновый лазер, вращающийся столик с неподвижным лимбом, призма из исландского шпата, поляроид.
+
+\input{Theory}
+%\newpage
+\input{Setup}
+\input{Progress}
+%\input{Treatment}
+\section*{Вывод:} Изучили зависимости показателя преломления необыкновенной волны от направления в двоякопреломляющем кристалле; научились определять главные показатели преломления в кристалле.
+
+\end{document}

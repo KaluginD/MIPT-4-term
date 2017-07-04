@@ -1,0 +1,56 @@
+\documentclass[12pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[russian]{babel}
+\usepackage{titlesec}
+\usepackage{titling}
+\usepackage{textcomp}
+\usepackage{graphicx}
+\usepackage{amssymb}
+\usepackage[russian]{babel}
+\usepackage[babel = true]{microtype}
+\usepackage[left=10mm,right=10mm, top=15mm,bottom=15mm]{geometry}
+\usepackage{amsmath}
+\usepackage{mathtools}
+\usepackage{array}
+\usepackage{wrapfig}
+\usepackage{multirow}
+\usepackage{gensymb}
+\usepackage{tabu}
+\usepackage{graphicx}
+\usepackage{subcaption}
+\let\oldAA\AA
+\renewcommand{\AA}{\text{\normalfont\oldAA}}
+
+\makeatletter
+\newcommand*{\rom}[1]{\expandafter\@slowromancap\romannumeral #1@}
+\makeatother
+
+\setlength{\droptitle}{-5em}
+
+\title{4.5.1 Гелий-неоновый лазер}
+\date{}
+
+\titleformat{\section}[hang]
+{\normalfont\bfseries}
+{\thesection.}{0.5em}{}
+
+\titleformat{\subsection}[hang]
+{\normalfont\bfseries}
+{\thesection.}{0.5em}{}
+
+\begin{document}
+
+\maketitle
+
+\paragraph{Цель работы:}Изучение основных принципов работы гелий-неонового лазера, свойств лазерного излучения и измерение усиления лазерной трубки.
+
+\paragraph{В работе используются:}объект исследования — активный элемент от гелий-неонового лазера ЛГ-75 с блоком питания, дополнительный He–Ne-лазер для юстировки и измерений, модулятор излучения (обтюратор), фотодиоды, зеркала, поляроид, компьютер со звуковой картой.
+
+\input{Theory}
+%\newpage
+\input{Setup}
+\input{Progress}
+%\input{Treatment}
+\section*{Вывод:} в данной работе мы ознакомились с принципами работы гелий-неонового лазера, установили его коэффициент усиления $k = 1,02 \pm 0,03$, убедлились в том, что генерируемое узлучение является поляризованным.
+
+\end{document}
